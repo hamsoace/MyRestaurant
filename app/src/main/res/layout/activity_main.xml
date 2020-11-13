@@ -17,6 +17,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:text="MyRestaurant"
+        android:id="@+id/appNameTextView"
         android:textColor="@color/white"
         android:textSize="40sp"
         android:textStyle="bold" />
