@@ -26,7 +26,7 @@ public class RestaurantsActivityInstrumentationTest {
             new ActivityTestRule<>(RestaurantsActivity.class);
 
     @Test
-    public void listItemClickDisplaysToastWithCorrectRestuarant(){
+    public void listItemClickDisplaysToastWithCorrectRestaurant(){
         View activityDecorView = activityTestRule.getActivity().getWindow().getDecorView();
         String restaurantName = "Mi Mero Mole";
         onData(anything())
