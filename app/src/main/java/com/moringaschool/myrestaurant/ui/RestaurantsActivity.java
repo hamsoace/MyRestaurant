@@ -1,10 +1,9 @@
-package com.moringaschool.myrestaurant;
+package com.moringaschool.myrestaurant.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,8 +11,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.moringaschool.myrestaurant.models.Business;
+import com.moringaschool.myrestaurant.R;
+import com.moringaschool.myrestaurant.models.YelpBusinessesSearchResponse;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.moringaschool.myrestaurant.network.YelpApi;
+import com.moringaschool.myrestaurant.network.YelpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RestaurantsActivity extends AppCompatActivity {
     @BindView(R.id.locationTextView) TextView mLocationTextView;
@@ -48,5 +58,29 @@ public class RestaurantsActivity extends AppCompatActivity {
         String location = intent.getStringExtra("location");
         mLocationTextView.setText("Here are all the restaurants near: " + location);
 //        Log.d(TAG, "In the onCreate method!");
+
+        YelpApi client = YelpClient.getClient();
+        Call<YelpBusinessesSearchResponse> call = client.getRestaurants(location, "restaurants");
+
+        call.enqueue(new Callback<YelpBusinessesSearchResponse>() {
+            @Override
+            public void onResponse(Call<YelpBusinessesSearchResponse> call, Response<YelpBusinessesSearchResponse> response) {
+                if (response.isSuccessful()){
+                    List<Business> restaurantList = response.body().getBusinesses();
+                    String[] restaurants = new String[restaurantList.size()];
+                    String[] categories = new String[restaurantList.size()];
+
+                    for (int i = 0; i < restaurants.length; i++){
+                        restaurants[i] = restaurantList.get(i).getName();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<YelpBusinessesSearchResponse> call, Throwable t) {
+
+            }
+        });
     }
+
 }

@@ -1,17 +1,15 @@
-package com.moringaschool.myrestaurant;
+package com.moringaschool.myrestaurant.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
+import com.moringaschool.myrestaurant.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

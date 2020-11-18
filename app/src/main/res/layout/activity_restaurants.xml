@@ -18,4 +18,13 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recyclerView"
+        android:layout_below="@+id/locationTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
+
 </RelativeLayout>
