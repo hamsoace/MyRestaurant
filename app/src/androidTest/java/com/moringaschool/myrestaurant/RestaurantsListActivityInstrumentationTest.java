@@ -9,7 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.moringaschool.myrestaurant.ui.RestaurantsActivity;
+import com.moringaschool.myrestaurant.ui.RestaurantsListActivity;
 
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
@@ -22,10 +22,10 @@ import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.core.IsNot.not;
 
 @RunWith(AndroidJUnit4.class)
-public class RestaurantsActivityInstrumentationTest {
+public class RestaurantsListActivityInstrumentationTest {
     @Rule
-    public ActivityTestRule<RestaurantsActivity> activityTestRule =
-            new ActivityTestRule<>(RestaurantsActivity.class);
+    public ActivityTestRule<RestaurantsListActivity> activityTestRule =
+            new ActivityTestRule<>(RestaurantsListActivity.class);
 
     @Test
     public void listItemClickDisplaysToastWithCorrectRestaurant(){

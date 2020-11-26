@@ -7,12 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.moringaschool.myrestaurant.adapters.RestaurantListAdapter;
 import com.moringaschool.myrestaurant.models.Business;
@@ -29,9 +25,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RestaurantsActivity extends AppCompatActivity {
-    private static final String TAG = RestaurantsActivity.class.getSimpleName();
-    @BindView(R.id.recyclerView) TextView mRecyclerView;
+public class RestaurantsListActivity extends AppCompatActivity {
+    private static final String TAG = RestaurantsListActivity.class.getSimpleName();
+    @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.errorTextView) TextView mErrorTextView;
     @BindView(R.id.progressBar)
     ProgressBar mProgressBar;
@@ -67,14 +63,15 @@ public class RestaurantsActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()){
                     restaurants = response.body().getBusinesses();
-                    mAdapter = new RestaurantListAdapter(RestaurantsActivity.this, restaurants);
+                    mAdapter = new RestaurantListAdapter(RestaurantsListActivity.this, restaurants);
                     mRecyclerView.setAdapter(mAdapter);
-                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RestaurantsActivity.this);
+                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(RestaurantsListActivity.this);
                     mRecyclerView.setLayoutManager(layoutManager);
                     mRecyclerView.setHasFixedSize(true);
 
                     showRestaurants();
                 }else{
+
                     showUnsuccessfulMessage();
                     }
                 }
@@ -129,16 +126,16 @@ public class RestaurantsActivity extends AppCompatActivity {
 
     private void showFailureMessage(){
         mErrorTextView.setText(("Something went wrong. Please check your Internet connection and try again later!"));
-        mErrorTextView.setVisibility(View.VISIBLE);
+        mErrorTextView.setVisibility(View.GONE);
     }
 
     private void showUnsuccessfulMessage(){
         mErrorTextView.setText("Something went wrong. Please try again later");
-        mErrorTextView.setVisibility(View.VISIBLE);
+        mErrorTextView.setVisibility(View.GONE);
     }
 
     private void showRestaurants(){
-        mRecyclerView.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
     }
 
     private void hideProgressBar(){
