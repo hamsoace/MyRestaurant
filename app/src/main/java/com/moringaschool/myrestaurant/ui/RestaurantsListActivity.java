@@ -4,17 +4,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.moringaschool.myrestaurant.Constants;
 import com.moringaschool.myrestaurant.adapters.RestaurantListAdapter;
 import com.moringaschool.myrestaurant.models.Business;
 import com.moringaschool.myrestaurant.R;
 import com.moringaschool.myrestaurant.models.YelpBusinessesSearchResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,13 +33,17 @@ import retrofit2.Response;
 
 public class RestaurantsListActivity extends AppCompatActivity {
     private static final String TAG = RestaurantsListActivity.class.getSimpleName();
+    private SharedPreferences mSharedPreferences;
+    private String mRecentAddress;
+
     @BindView(R.id.recyclerView) RecyclerView mRecyclerView;
     @BindView(R.id.errorTextView) TextView mErrorTextView;
     @BindView(R.id.progressBar)
-    ProgressBar mProgressBar;
+   ProgressBar mProgressBar;
     private RestaurantListAdapter mAdapter;
 
-    public List<Business> restaurants;
+    public List<Business> restaurants = new ArrayList<>();
+    public ArrayList<Business> mRestaurants;
 
 //    private String[] restaurants = new String[]{"Mi Mero Mole", "Mother's Bistro",
 //        "Life of Pie", "Screen Door", "Luc Lac", "Sweet Basil",
@@ -55,6 +65,11 @@ public class RestaurantsListActivity extends AppCompatActivity {
         YelpApi client = YelpClient.getClient();
 
         Call<YelpBusinessesSearchResponse> call = client.getRestaurants(location, "restaurants");
+
+        //pulling data from it by calling getString()
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);//default value null will be returned if the getString() method is unable to find a value
+        Log.d("Shared Pref Location", mRecentAddress);
 
         call.enqueue(new Callback<YelpBusinessesSearchResponse>() {
             @Override
@@ -80,48 +95,16 @@ public class RestaurantsListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<YelpBusinessesSearchResponse> call, Throwable t) {
                     hideProgressBar();
+                    Log.e(TAG, "In the onFailure method ", t);
+                    Log.e(TAG, "In throwable", t);
                     showFailureMessage();
             }
         });
 
-//        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, restaurants);
-//        mListView.setAdapter(adapter);
-//
-//        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////            Log.v(TAG, "In the onItemClickListener!");
-//            String restaurant = ((TextView)view).getText().toString();
-//                Toast.makeText(RestaurantsActivity.this, restaurant, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        Intent intent = getIntent();
-//        String location = intent.getStringExtra("location");
-////        mLocationTextView.setText("Here are all the restaurants near: " + location);
-////        Log.d(TAG, "In the onCreate method!");
-//
-//        YelpApi client = YelpClient.getClient();
-//        Call<YelpBusinessesSearchResponse> call = client.getRestaurants(location, "restaurants");
-//
-//        call.enqueue(new Callback<YelpBusinessesSearchResponse>() {
-//            @Override
-//            public void onResponse(Call<YelpBusinessesSearchResponse> call, Response<YelpBusinessesSearchResponse> response) {
-//                if (response.isSuccessful()){
-//                    List<Business> restaurantList = response.body().getBusinesses();
-//                    String[] restaurants = new String[restaurantList.size()];
-//                    String[] categories = new String[restaurantList.size()];
-//
-//                    for (int i = 0; i < restaurants.length; i++){
-//                        restaurants[i] = restaurantList.get(i).getName();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<YelpBusinessesSearchResponse> call, Throwable t) {
-//
-//            }
-//        });
+    }
+
+    private void getRestaurants(){
+        final YelpClient yelpClient = new YelpClient();
     }
 
     private void showFailureMessage(){
