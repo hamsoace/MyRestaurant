@@ -17,9 +17,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:fontFamily="roboto"
-        android:text="MyRestaurant"
+        android:text="My Restaurant"
         android:id="@+id/appNameTextView"
-        android:textColor="@color/white"
+        android:textColor="@color/colorPrimary"
         android:textSize="50sp"
         android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/locationEditText"
-        android:background="@color/white"
+        android:background="@color/colorSecondaryText"
         android:layout_above="@+id/findRestaurantsButton"
         android:layout_marginBottom="10dp"
         android:padding="5dp"
@@ -41,7 +41,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Find Restaurant"
-        android:textColor="@color/white"
+        android:textColor="@color/colorSecondaryText"
         android:textSize="30sp" />
 
 </RelativeLayout>

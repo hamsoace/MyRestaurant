@@ -24,7 +24,7 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:text="Restaurant Name"
-            android:textColor="@color/black"/>
+            android:textColor="@color/colorSecondaryText"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:id="@+id/ratingTextView"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/black"/>
+                android:textColor="@color/colorSecondaryText"/>
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
